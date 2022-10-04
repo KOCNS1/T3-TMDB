@@ -35,6 +35,7 @@ const PopularSlider = ({ content }: Props) => {
                 height={660}
                 className="rounded-box shadow-lg"
                 alt={isMovie(item) ? item.title : item.name}
+                quality={100}
               />
             </Link>
 

@@ -1,6 +1,11 @@
 import React from "react";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import { Button } from "react-daisyui";
 
 const Header = () => {
+  const session = useSession();
+
   return (
     <header className="navbar bg-neutral shadow-xl rounded-box m-auto my-2 text-white">
       <div className="navbar-start">
@@ -55,7 +60,9 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Tmdb clone</a>
+        <Link href={"/"}>
+          <a className="btn btn-ghost normal-case text-xl">Tmdb clone</a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
@@ -90,16 +97,23 @@ const Header = () => {
         </ul>
       </div>
 
-      {/* <div className="navbar-end gap-3" *ngIf="isLoggedIn$ | async; else loggedOut">
-    <a className="btn btn-outline text-white" routerLink="/account">my account</a>
-    <a className="btn btn-outline text-white" (click)="logout()">Logout</a>
-  </div>
-  <ng-template #loggedOut>
-    <div className="navbar-end gap-3">
-      <a className="btn btn-outline text-white" routerLink="/register">Register</a>
-      <a className="btn btn-outline text-white" routerLink="/login">Login</a>
-    </div>
-  </ng-template> */}
+      {session.status === "authenticated" ? (
+        <div className="navbar-end gap-3">
+          <a className="btn btn-outline text-white">my account</a>
+          <Button
+            className="btn btn-outline text-white"
+            onClick={() => signOut()}
+          >
+            Logout
+          </Button>
+        </div>
+      ) : (
+        <div className="navbar-end gap-3">
+          <Link href={"/auth/login"}>
+            <a className="btn btn-outline text-white">Sign In</a>
+          </Link>
+        </div>
+      )}
     </header>
   );
 };

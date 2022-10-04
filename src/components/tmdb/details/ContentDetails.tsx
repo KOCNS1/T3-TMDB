@@ -32,7 +32,9 @@ const ContentDetails = ({ type, id }: Props) => {
             src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`}
             width={300}
             height={450}
+            className="rounded-lg shadow-l shadow-neutral-focus"
             alt={isMovie(data) ? data.title : data.original_name}
+            quality={100}
           />
         </div>
         <div className="flex flex-col gap-10 text-white w-3/4 justify-center">
